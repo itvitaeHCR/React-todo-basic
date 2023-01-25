@@ -10,6 +10,9 @@ class App extends React.Component {
     items: [
       { text: "item 1", done: false, key: '0' }, 
       { text: "item 2", done: false, key: '1' },
+      { text: "item 3", done: false, key: '2' },
+      { text: "item 4", done: false, key: '3' },
+      { text: "item 5", done: false, key: '4' },
     ]
   };
 
@@ -26,15 +29,26 @@ class App extends React.Component {
 
   
   handleDone = (index) => {
-    console.log("1 ", this.state.items[index]);
-    const currentDone = this.state.items[index].done;
-    console.log("cd1 ",  currentDone);
-    this.setState(prevState => ({
-      done: prevState.items[index].done = !currentDone
+    //v1
+  //   const currentDone = this.state.items[index].done;
+  //   this.setState(prevState => ({
+  //     done: prevState.items[index].done = !currentDone
+  // }));
 
-  }));
-    console.log("2 ", this.state.items[index]);
-    console.log("cd2 ",  currentDone);
+    //v2
+  const part1 = this.state.items.slice(0, index);
+  const part2 = this.state.items.slice((index+1));
+  const currentTask = this.state.items[index];
+  console.log(part1);
+  console.log(part2);
+  console.log(currentTask);
+  currentTask.done = !currentTask.done;
+  console.log(currentTask);
+  const newItems = part1.concat(currentTask, part2);
+  this.setState(
+    {items: newItems}
+  )
+  console.log(this.state.items);
   };
 
   render() {
